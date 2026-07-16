@@ -3,7 +3,7 @@ name: Weekly Dashboard Update
 on:
   schedule:
     # 每周六 UTC 22:00 (北京时间周日早上6点) 自动运行
-    - cron: '0 22 * * 6'
+    - cron: '0 14 * * 1'
   workflow_dispatch:
     # 也可以在 GitHub 网页上手动点击运行
 
