@@ -23,6 +23,15 @@ fund   = pd.read_csv("data/fundamentals.csv")
 as_of = prices.index.max()
 print(f"数据截至: {as_of.date()}")
 
+print(f"价格列数: {prices.shape[1]}, 基本面行数: {len(fund)}")
+print(f"价格列样本: {list(prices.columns[:5])}")
+print(f"基本面ticker样本: {list(fund['ticker'][:5])}")
+fv = prices.apply(lambda c: c.first_valid_index())
+print(f"first_valid非空: {fv.notna().sum()}")
+cutoff_test = prices.index.max() - pd.DateOffset(months=12)
+print(f"cutoff: {cutoff_test.date()}")
+print(f"first_valid<=cutoff: {(fv <= cutoff_test).sum()}")
+
 fund_idx = fund.set_index("ticker")
 fund_idx["latest_price"]  = prices.loc[as_of].reindex(fund_idx.index)
 fund_idx["adv_dollar"]    = fund_idx["avg_volume"] * fund_idx["latest_price"]
